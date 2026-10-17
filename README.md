@@ -1,71 +1,67 @@
 # Sistem-Rekomendasi-Film-Decision-Tree
 Sistem rekomendasi film berdasarkan genre, usia tontonan, dan negara menggunakan algoritma Decision Tree, dilengkapi visualisasi pohon keputusan dan aturan prediksi.
 
+## Deskripsi Proyek
 
-**Sistem Rekomendasi Film Menggunakan Decision Tree**
+Repository ini berisi implementasi sistem rekomendasi film menggunakan algoritma **Decision Tree Classifier** dengan bahasa pemrograman Python. Proyek ini dikembangkan untuk memenuhi tugas mata kuliah Struktur Data dan Algoritma pada Program Studi Sains Data, Universitas Negeri Surabaya.
 
-**Deskripsi Proyek**
+Sistem memanfaatkan informasi film berupa genre, usia tontonan, negara, dan rating IMDb untuk membangun model klasifikasi yang menentukan apakah suatu film masuk ke dalam kategori rekomendasi atau tidak direkomendasikan.
 
-Proyek ini merupakan implementasi sistem rekomendasi film menggunakan algoritma Decision Tree dengan bahasa pemrograman Python. Sistem memanfaatkan informasi genre, usia tontonan, negara asal, dan rating IMDb untuk menghasilkan prediksi apakah suatu film termasuk kategori rekomendasi atau tidak direkomendasikan.
+Selain membangun model klasifikasi, proyek ini juga mengimplementasikan visualisasi pohon keputusan menggunakan Scikit-learn dan NetworkX agar struktur keputusan model dapat diamati secara visual.
 
-Selain membangun model klasifikasi, proyek ini juga menampilkan visualisasi pohon keputusan menggunakan Scikit-learn dan NetworkX serta menerjemahkan aturan keputusan ke dalam bentuk yang lebih mudah dipahami.
+## Tujuan Proyek
 
-**Tujuan**
+- Menerapkan algoritma Decision Tree dalam sistem rekomendasi film.
+- Melakukan pembersihan dan preprocessing data film.
+- Mengubah fitur kategorikal menjadi representasi numerik.
+- Membentuk kategori rekomendasi berdasarkan rating IMDb.
+- Memvisualisasikan struktur pohon keputusan dan aturan klasifikasi.
+- Menghasilkan daftar film yang memenuhi kriteria rekomendasi berdasarkan input yang ditentukan.
 
-1. Menerapkan algoritma Decision Tree untuk klasifikasi rekomendasi film.
-2. Mengolah dan membersihkan data film sebelum digunakan dalam pemodelan.
-3. Mengubah atribut kategorikal menjadi representasi numerik.
+## Dataset
 
-**Dataset**
+Dataset yang digunakan adalah `LIST_GENRE_FILM_SDA.csv`, yang memuat informasi film dengan atribut berikut:
 
-Dataset yang digunakan adalah LIST_GENRE_FILM_SDA.csv, yang berisi informasi film dengan atribut berikut:
-- Judul Film : Nama Film
-- Tahun : Tahun rilis film
-- Negara : Negara asal film
-- Rating IMDb : Nilai rating film dari IMDb
-- Usia Tontonan : Kategori usia penonton
-- Genre : Genre atau kategori film
+| Atribut | Keterangan |
+|---|---|
+| Judul Film | Nama film |
+| Tahun | Tahun rilis film |
+| Negara | Negara asal film |
+| Rating IMDb | Rating film berdasarkan IMDb |
+| Usia Tontonan | Kategori usia penonton |
+| Genre | Genre atau kategori film |
 
+## Metodologi
 
-**Metodologi**
+### 1. Data Cleaning
+Data dibaca dari file CSV, kemudian dilakukan pembersihan untuk menangani rating yang tidak valid dan menyaring data berdasarkan kriteria yang ditetapkan dalam kode.
 
-**1. Data Loading dan Cleaning**
+### 2. Feature Encoding
+Fitur kategorikal seperti genre, negara, dan usia tontonan dikonversi menjadi kode numerik agar dapat digunakan oleh model Decision Tree.
 
-Data dibaca menggunakan library CSV dan Pandas. Tahap pembersihan meliputi konversi rating IMDb menjadi numerik, penghapusan data dengan rating tidak valid, serta penyaringan beberapa nilai genre dan kategori usia tontonan.
+### 3. Pembentukan Label Rekomendasi
+Label target dibentuk berdasarkan rating IMDb:
+- `1`: Rekomendasi, jika rating IMDb lebih dari 5,0.
+- `0`: Tidak direkomendasikan, jika rating IMDb kurang dari atau sama dengan 5,0.
 
-**2. Penentuan Label Rekomendasi**
+Dengan demikian, kategori rekomendasi merupakan label yang dibentuk dari aturan rating dalam proyek, bukan penilaian preferensi pengguna secara langsung.
 
-Label target dibuat berdasarkan rating IMDb:
-- Rekomendasi (1): rating IMDb lebih dari 5,0.
-- Tidak direkomendasikan (0): rating IMDb kurang dari atau sama dengan 5,0.
+### 4. Pemodelan Decision Tree
+Model dibangun menggunakan `DecisionTreeClassifier` dari Scikit-learn dengan konfigurasi `max_depth=5`. Data dibagi menjadi data latih dan data uji, dengan model dilatih menggunakan bagian data latih.
 
-**3. Encoding Atribut**
+### 5. Prediksi Rekomendasi Film
+Sistem menyaring film berdasarkan genre, usia tontonan, dan negara yang ditentukan. Film yang memenuhi filter kemudian diproses menggunakan model untuk menghasilkan prediksi kategori rekomendasi.
 
-Atribut genre, usia tontonan, dan negara diubah menjadi kode numerik agar dapat digunakan sebagai fitur dalam model Decision Tree.
+### 6. Visualisasi Pohon Keputusan
+Struktur pohon keputusan ditampilkan menggunakan dua pendekatan:
+- `plot_tree` dari Scikit-learn.
+- Visualisasi graf menggunakan NetworkX dengan struktur node dan edge.
 
-**4. Pemodelan Decision Tree**
+Kode juga menyediakan fungsi untuk menampilkan aturan keputusan dalam bentuk teks.
 
-Model dibangun menggunakan DecisionTreeClassifier dari Scikit-learn dengan max_depth=5. Fitur yang digunakan adalah genre, usia tontonan, dan negara yang telah di-encoding.
+## Konteks Akademik
 
-**5. Prediksi dan Penyaringan Film**
-
-Sistem menggunakan kombinasi genre, usia tontonan, dan negara sebagai kriteria penyaringan film. Model kemudian memprediksi kategori rekomendasi untuk film yang sesuai dengan kriteria tersebut.
-
-Film yang diprediksi sebagai rekomendasi disimpan ke dalam file film_rekomendasi.csv.
-
-**6. Visualisasi dan Interpretasi**
-
-Visualisasi dan interpretasi model dilakukan melalui:
-- Visualisasi pohon keputusan menggunakan Scikit-learn.
-- Penerjemahan aturan keputusan ke dalam bahasa yang lebih mudah dipahami.
-- Visualisasi struktur pohon keputusan menggunakan NetworkX.
-
-**Konteks Akademik**
-
-Proyek mata kuliah Struktur Data dan Algoritma (SDA).
-Program Studi Sains Data
+Program Studi S1 Sains Data  
 Universitas Negeri Surabaya
 
-**Catatan**
-
-Model dalam proyek ini mempelajari label rekomendasi yang dibentuk dari rating IMDb, bukan dari penilaian preferensi pengguna secara langsung. Karena itu, hasilnya lebih tepat dipahami sebagai klasifikasi film berdasarkan aturan yang dibangun dari dataset.
+Mata Kuliah: Struktur Data dan Algoritmai film berdasarkan aturan yang dibangun dari dataset.
